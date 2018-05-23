@@ -10,10 +10,21 @@ import {
 export default class Chat extends Component {
 
   state = {
-    messages:[],
+    messages: []
   };
 
   onSend = (messages = []) => {
+    fetch('http://localhost:3000/rooms', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        messages
+      }),
+    });
+
     this.setState((previousState) => ({
       messages: GiftedChat.append(previousState.messages, messages),
     }));

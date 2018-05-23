@@ -46,6 +46,7 @@ class RoomsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def room_params
-      params.fetch(:room, {}).permit(:comment)
+      json = params.fetch(:messages, {})
+      json[0].permit(:text)
     end
 end
