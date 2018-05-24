@@ -13,6 +13,17 @@ export default class Chat extends Component {
     messages: []
   };
 
+  componentWillMount() {
+    var data = require('../../data/message');
+    var msg = data.get();
+    setTimeout(() => {
+      this.setState((previousState) => {
+        return {
+          messages: GiftedChat.prepend(previousState.messages, msg.reverse()),
+        };
+      });
+    }, 1000);
+  }
   onSend = (messages = []) => {
     fetch('http://localhost:3000/rooms', {
       method: 'POST',
@@ -29,7 +40,6 @@ export default class Chat extends Component {
       messages: GiftedChat.append(previousState.messages, messages),
     }));
   }
-
   render() {
     return (
       <GiftedChat
